@@ -1,4 +1,4 @@
-```markdown
+
 # 📓 Field Notes – Jurnal Belajar IT & Showcase Proyek
 
 Ini adalah repositori kode sumber untuk website jurnal belajar pribadi saya di bidang **IT Networking, Web Development, dan System Administration**. Website ini mencatat praktikum harian, konfigurasi jaringan, eksperimen CSS/JS, serta menyimpan tautan ke proyek web latihan eksternal. Dibangun sebagai *personal branding* yang bersih, unik, dan fungsional – cocok untuk rekan sejawat, komunitas developer, maupun rekruter.
@@ -48,7 +48,7 @@ Jika ingin menguji atau mengembangkan website ini di komputer/HP Anda:
    git clone https://github.com/username/field-notes-journal.git
    cd field-notes-journal
   ```
-```markdown
+
 2. Buat folder konten contoh (jika belum ada)
    · Tambahkan file .html di catatan/
    · Tambahkan file .json di proyek/
@@ -59,7 +59,7 @@ Jika ingin menguji atau mengembangkan website ini di komputer/HP Anda:
    ```bash
    node build.js
    ```
-```markdown
+
    Perintah ini akan membuat daftar-catatan.json dan daftar-proyek.json di root.
 4. Buka website
    · Buka index.html dengan browser (cukup klik dua kali).
@@ -80,7 +80,7 @@ Jika ingin menguji atau mengembangkan website ini di komputer/HP Anda:
    <pre><code>perintah atau kode</code></pre>
    <img src="https://contoh.com/gambar.jpg" alt="deskripsi">
    ```
-```markdown
+
 3. Jalankan node build.js (atau push ke GitHub, nanti Vercel otomatis menjalankannya).
 
 🔹 Menambah Proyek Web
@@ -95,7 +95,7 @@ Jika ingin menguji atau mengembangkan website ini di komputer/HP Anda:
      "tanggal": "2026-06-11"
    }
    ```
-```markdown
+
 3. Jalankan node build.js lagi.
 
 Catatan: Setiap perubahan, jalankan node build.js agar JSON terbaru. Saat deploy ke Vercel, hal ini otomatis terjadi setiap push.
