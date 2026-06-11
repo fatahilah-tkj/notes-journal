@@ -52,7 +52,7 @@ Jika ingin menguji atau mengembangkan website ini di komputer/HP Anda:
   - Tambahkan file .html di catatan/
   - Tambahkan file .json di proyek/
    
-        (lihat bagian Cara Menambah Catatan/Proyek di bawah)
+    (lihat bagian Cara Menambah Catatan/Proyek di bawah)
 3. **Generate file JSON statis (wajib agar frontend tidak error)**
   - Pastikan Node.js terinstal, lalu jalankan:
      ```bash
