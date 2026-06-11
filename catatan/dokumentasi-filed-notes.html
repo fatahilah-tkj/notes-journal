@@ -1,0 +1,82 @@
+<h2>📘 Dokumentasi Pembuatan Website Field Notes</h2>
+<p class="meta-date" style="color: var(--ink-muted);">Dibuat: 12 Juni 2026 | Versi: 2.1 (Final dengan Paginasi)</p>
+
+<h3>1. Latar Belakang</h3>
+<p>Website ini dibangun sebagai jurnal belajar IT dan showcase proyek web. Berbasis <strong>Vanilla HTML, CSS, JavaScript</strong> tanpa framework, dioptimasi untuk pengelolaan dari HP serta deployment di Vercel.</p>
+
+<h3>💡 Kolaborasi Manusia + AI</h3>
+<p>Seluruh kode dalam proyek ini ditulis dengan bantuan <strong>Large Language Model (AI)</strong> berdasarkan <strong>Product Requirement Document (PRD)</strong> yang saya susun sebagai <em>Lead Developer & Content Architect</em>. Saya bertanggung jawab penuh atas arsitektur sistem, struktur data, desain visual, proses debugging, deployment, serta integrasi build script ke Vercel – semuanya dikelola dari perangkat seluler. Peran AI adalah membantu menerjemahkan spesifikasi teknis menjadi kode HTML/CSS/JS yang efisien dan sesuai standar.</p>
+
+<h3>2. Arsitektur & Struktur Folder</h3>
+<pre><code>root/
+├── index.html          (landing page + bio + showcase)
+├── catatan.html        (halaman jurnal dengan tab, search, paginasi)
+├── style.css           (CSS custom properties + efek kertas)
+├── script.js           (frontend logic: fetch, routing, filter, pagination)
+├── build.js            (Node.js build script: scan /catatan & /proyek → JSON)
+├── package.json        (npm script "build": "node build.js")
+├── catatan/            (folder HTML parsial untuk setiap catatan)
+│   ├── cisco-ospf.html
+│   ├── css-flexbox.html
+│   └── dokumentasi-field-notes.html
+└── proyek/             (folder JSON metadata proyek eksternal)
+    ├── toko-online.json
+    └── kalkulator-js.json
+</code></pre>
+
+<h3>3. Fitur Utama (Sesuai PRD Final v2.1)</h3>
+<ul>
+  <li><strong>Efek kertas bergaris</strong> – latar krem, garis horizontal biru, garis tepi merah (skeuomorphic binder).</li>
+  <li><strong>Tab pisah</strong> – “Semua Catatan” dan “Daftar Latihan Web”, masing-masing dengan sorting & paginasi independen.</li>
+  <li><strong>Pencarian real-time</strong> + tombol <code>✕</code> (muncul saat input diisi).</li>
+  <li><strong>Paginasi 20 item per halaman</strong> – nyaman untuk ratusan data.</li>
+  <li><strong>Routing dinamis</strong> – <code>?page=slug</code> menampilkan isi catatan tanpa reload, tombol “kembali ke Daftar” mereset semua state.</li>
+  <li><strong>Build otomatis</strong> – saat deploy, <code>build.js</code> membaca folder <code>/catatan</code> dan <code>/proyek</code>, lalu menghasilkan file <code>daftar-catatan.json</code> dan <code>daftar-proyek.json</code> dalam format <strong>minified</strong>.</li>
+  <li><strong>Mobile-first & zero framework</strong> – semua kode vanilla, diketik dan diedit langsung dari HP (Acode/Spck).</li>
+</ul>
+
+<h3>4. Alur Kerja Pengelolaan Konten</h3>
+<ol>
+  <li><strong>Tambah catatan baru</strong> → buat file <code>.html</code> di folder <code>/catatan</code> (isi parsial tanpa <code>&lt;html&gt;</code>).</li>
+  <li><strong>Tambah proyek baru</strong> → buat file <code>.json</code> di folder <code>/proyek</code> dengan properti: <code>judul, deskripsi, link, tanggal</code>.</li>
+  <li><strong>Jalankan build</strong> → <code>node build.js</code> (atau push ke GitHub → Vercel menjalankannya otomatis).</li>
+  <li><strong>Deploy</strong> → setiap <code>git push</code> memicu redeploy di Vercel.</li>
+</ol>
+
+<h3>5. Teknis Build Script (build.js)</h3>
+<p>Membaca semua file <code>.html</code> di <code>/catatan</code>, mengambil <code>mtime</code> sebagai tanggal, membuat <code>slug</code> dan <code>judul</code> otomatis. Juga membaca semua file <code>.json</code> di <code>/proyek</code>. Output ditulis ke root dengan <code>JSON.stringify(data)</code> (minified).</p>
+
+<h3>6. Frontend Logic (script.js)</h3>
+<ul>
+  <li><code>fetch()</code> kedua JSON → menyimpan ke variabel global.</li>
+  <li>Render daftar berdasarkan tab aktif, filter (search), sorting, dan halaman.</li>
+  <li>Event listeners untuk tab, sorting, search, tombol clear, paginasi, dan routing.</li>
+  <li>Saat mode baca (<code>?page=...</code>) → fetch file HTML parsial, tampilkan + tombol kembali. Kembali ke indeks mereset semua state (search kosong, tab catatan, sorting terbaru, halaman 1).</li>
+</ul>
+
+<h3>7. Desain Visual (CSS)</h3>
+<p>Menggunakan <code>:root</code> untuk variabel warna dan font. Efek kertas diterapkan di <code>.paper-container</code> dengan <code>background-image: linear-gradient(...)</code> dan <code>::before</code> untuk garis merah. Semua komponen (tab, search, paginasi, tombol) dibuat responsif dengan media queries.</p>
+
+<h3>8. Deployment ke Vercel</h3>
+<p>Setelah repository dihubungkan ke Vercel, atur:</p>
+<ul>
+  <li>Build Command: <code>npm run build</code></li>
+  <li>Output Directory: <code>.</code></li>
+</ul>
+<p>Vercel akan menjalankan <code>build.js</code> dan mendeploy file statis. Otomatis memperbarui setiap push ke branch utama.</p>
+
+<h3>9. Hal yang Dipelajari & Kendala</h3>
+<ul>
+  <li>Mengatur efek garis kertas tanpa gambar background agar loading cepat.</li>
+  <li>Membangun routing dinamis murni dengan Vanilla JS dan <code>URLSearchParams</code>.</li>
+  <li>Mengimplementasikan paginasi + state per tab tanpa library.</li>
+  <li>Memastikan tombol clear search muncul dan berfungsi dengan event <code>input</code>.</li>
+  <li>Menangani graceful fallback saat fetch JSON atau HTML parsial gagal.</li>
+  <li>Menyusun build script Node.js yang membaca file system dan menghasilkan JSON minified.</li>
+  <li>Kolaborasi dengan AI: menyusun PRD, memerintahkan eksekusi kode, debugging, dan integrasi sistem.</li>
+</ul>
+
+<h3>10. Lisensi & Atribusi</h3>
+<p>Kode ini ditulis berdasarkan PRD Final v2.1. Dikembangkan secara kolaboratif antara <strong>Fatahilah Miftahul Rahman</strong> (Lead Developer & Content Architect) dan AI (penerjemah PRD ke kode).</p>
+
+<p><strong>– Website live: <a href="https://field-notes-journal.vercel.app" target="_blank">field-notes-journal.vercel.app</a></strong></p>
