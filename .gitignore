@@ -1,0 +1,10 @@
+node_modules/
+daftar-catatan.json
+daftar-proyek.json
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+*.log

@@ -1,0 +1,9 @@
+{
+  "name": "field-notes-journal",
+  "version": "2.1.0",
+  "private": true,
+  "description": "Personal IT Learning Journal & Project Showcase with pagination",
+  "scripts": {
+    "build": "node build.js"
+  }
+}

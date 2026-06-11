@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Field Notes · Jurnal Belajar IT</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Google Fonts (diperbolehkan) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&family=Special+Elite&display=swap" rel="stylesheet">
+</head>
+<body>
+  <main class="landing-container">
+    <header class="landing-header">
+      <h1 class="journal-title">✦ Field Notes</h1>
+      <p class="subhead">Catatan harian & laboratorium eksperimen</p>
+    </header>
+
+    <section class="bio-section">
+      <p>Halo, saya teknisi IT yang sedang belajar <strong>Networking, Web Development, dan Linux</strong>. Di sini saya menulis ulang apa yang saya praktikkan setiap hari — mulai dari konfigurasi Cisco, eksperimen CSS, sampai otomatisasi dengan bash. Jurnal ini adalah bukti nyata perjalanan belajar saya.</p>
+      <p>Semua catatan dan proyek diorganisir secara kronologis. Silakan buka buku catatan untuk melihat detailnya.</p>
+    </section>
+
+    <section class="showcase-section">
+      <h2 class="section-title">⋆ Proyek unggulan</h2>
+      <div id="showcase-list" class="showcase-list">
+        <!-- Akan diisi JavaScript dengan 3 proyek terbaru dari daftar-proyek.json -->
+        <div class="loading-indicator">Memuat proyek...</div>
+      </div>
+    </section>
+
+    <footer class="landing-footer">
+      <a href="catatan.html" class="cta-link">↪ Buka Buku Catatan Belajar →</a>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+  <script>
+    // Fetch showcase (3 proyek terbaru) setelah DOM siap
+    (function loadShowcase() {
+      fetch('daftar-proyek.json')
+        .then(res => {
+          if (!res.ok) throw new Error('Gagal fetch proyek');
+          return res.json();
+        })
+        .then(proyekList => {
+          if (!proyekList || proyekList.length === 0) {
+            document.getElementById('showcase-list').innerHTML = '<p class="empty-muted">Belum ada proyek. Segera tambahkan!</p>';
+            return;
+          }
+          // Urutkan terbaru (tanggal descending) lalu ambil 3
+          const sorted = [...proyekList].sort((a,b) => new Date(b.tanggal) - new Date(a.tanggal));
+          const top3 = sorted.slice(0,3);
+          const html = top3.map(p => `
+            <div class="showcase-item">
+              <strong>${escapeHtml(p.judul)}</strong><br>
+              <span class="showcase-desc">${escapeHtml(p.deskripsi)}</span><br>
+              <a href="${escapeHtml(p.link)}" target="_blank" rel="noopener noreferrer">[Link Live]</a>
+            </div>
+          `).join('');
+          document.getElementById('showcase-list').innerHTML = html;
+        })
+        .catch(err => {
+          console.warn(err);
+          document.getElementById('showcase-list').innerHTML = '<p class="empty-muted">Gagal memuat proyek. Coba lagi nanti.</p>';
+        });
+    })();
+
+    // Fungsi sederhana untuk mencegah XSS
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
+      }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
+        return c;
+      });
+    }
+  </script>
+</body>
+</html>

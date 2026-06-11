@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Buku Catatan · Field Notes</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&family=Special+Elite&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="paper-container">
+    <!-- Tombol kembali ke Beranda (opsional namun ditambahkan) -->
+    <div class="nav-top">
+      <a href="index.html" class="home-link">← Beranda</a>
+    </div>
+
+    <!-- ========== MODE INDEKS (daftar catatan/proyek) ========== -->
+    <div id="mode-indeks">
+      <header class="jurnal-header">
+        <h1 class="journal-title">📓 Buku Catatan</h1>
+      </header>
+
+      <!-- Tab pembatas binder -->
+      <div class="tab-wrapper">
+        <button id="tab-catatan" class="tab-btn active">Semua Catatan</button>
+        <button id="tab-proyek" class="tab-btn">Daftar Latihan Web</button>
+      </div>
+
+      <!-- Sorting dropdown -->
+      <div class="sort-wrapper">
+        <label for="sort-select" class="sort-label">Urutkan:</label>
+        <select id="sort-select" class="sort-select">
+          <option value="terbaru">Terbaru</option>
+          <option value="terlama">Terlama</option>
+        </select>
+      </div>
+
+      <!-- Search bar dengan tombol clear [X] -->
+      <div class="search-wrapper">
+        <input type="text" id="search-input" placeholder="Cari catatan atau proyek di sini..." autocomplete="off">
+        <button id="clear-search" class="clear-btn" style="display: none;">✕</button>
+      </div>
+
+      <!-- Container daftar list (akan diisi JavaScript) -->
+      <div id="list-container" class="list-container"></div>
+
+      <!-- Empty state (default disembunyikan) -->
+      <div id="empty-state" class="empty-state" style="display: none;">
+        <p>📭 Catatan tidak ditemukan.<br>Coba kata kunci lain atau pastikan ejaan sudah benar.</p>
+      </div>
+
+      <!-- Kontrol paginasi -->
+      <div id="pagination-controls" class="pagination-controls">
+        <button id="prev-page" class="page-btn" disabled>← Sebelumnya</button>
+        <span id="page-info" class="page-info">Halaman 1 / 1</span>
+        <button id="next-page" class="page-btn" disabled>Selanjutnya →</button>
+      </div>
+    </div>
+
+    <!-- ========== MODE BACA (konten catatan) ========== -->
+    <div id="mode-baca" style="display: none;">
+      <button id="back-to-list" class="back-btn">kembali ke Daftar</button>
+      <div id="konten-jurnal" class="konten-jurnal"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
