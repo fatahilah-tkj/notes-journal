@@ -22,9 +22,14 @@
 
     <section class="showcase-section">
       <h2 class="section-title">⋆ Proyek unggulan</h2>
-      <div id="showcase-list" class="showcase-list">
-        <!-- Akan diisi JavaScript dengan 3 proyek terbaru dari daftar-proyek.json -->
-        <div class="loading-indicator">Memuat proyek...</div>
+      <div class="showcase-list">
+        <!-- EDIT MANUAL: tambah/ubah proyek sesuai keinginan -->
+        <div class="showcase-item">
+          <strong>Website Portofolio</strong><br>
+          <span class="showcase-desc">menampilkan profil, keahlian IT Network & System Administration, serta proyek dan sertifikasi.<br>Halaman sertifikat menggunakan Google Sheets sebagai CMS dengan gambar dari GitHub CDN (jsDelivr).<br>Lab Archive (subfolder) menyajikan proyek lab dinamis dari Google Sheets.<br>Dibangun dengan HTML, CSS, JavaScript vanilla, responsif, dan dioptimalkan untuk performa serta SEO.</span><br>
+          <a href="https://fatahilah-portofolio.vercel.app/" target="_blank" rel="noopener noreferrer">[Link Live]</a>
+        </div>
+        <!-- Tambah proyek lain di sini -->
       </div>
     </section>
 
@@ -34,49 +39,6 @@
   </main>
 
   <script src="script.js"></script>
-  <script>
-    // Fetch showcase (3 proyek terbaru) setelah DOM siap
-    (function loadShowcase() {
-      fetch('daftar-proyek.json')
-        .then(res => {
-          if (!res.ok) throw new Error('Gagal fetch proyek');
-          return res.json();
-        })
-        .then(proyekList => {
-          if (!proyekList || proyekList.length === 0) {
-            document.getElementById('showcase-list').innerHTML = '<p class="empty-muted">Belum ada proyek. Segera tambahkan!</p>';
-            return;
-          }
-          // Urutkan terbaru (tanggal descending) lalu ambil 3
-          const sorted = [...proyekList].sort((a,b) => new Date(b.tanggal) - new Date(a.tanggal));
-          const top3 = sorted.slice(0,3);
-          const html = top3.map(p => `
-            <div class="showcase-item">
-              <strong>${escapeHtml(p.judul)}</strong><br>
-              <span class="showcase-desc">${escapeHtml(p.deskripsi)}</span><br>
-              <a href="${escapeHtml(p.link)}" target="_blank" rel="noopener noreferrer">[Link Live]</a>
-            </div>
-          `).join('');
-          document.getElementById('showcase-list').innerHTML = html;
-        })
-        .catch(err => {
-          console.warn(err);
-          document.getElementById('showcase-list').innerHTML = '<p class="empty-muted">Gagal memuat proyek. Coba lagi nanti.</p>';
-        });
-    })();
-
-    // Fungsi sederhana untuk mencegah XSS
-    function escapeHtml(str) {
-      if (!str) return '';
-      return str.replace(/[&<>]/g, function(m) {
-        if (m === '&') return '&amp;';
-        if (m === '<') return '&lt;';
-        if (m === '>') return '&gt;';
-        return m;
-      }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
-        return c;
-      });
-    }
-  </script>
+  <!-- Tidak ada lagi script fetch showcase karena sudah statis -->
 </body>
 </html>

@@ -1,6 +1,6 @@
 {
   "judul": "Website Portofolio Saya",
-  "deskripsi": "Website Portofolio Fatahilah Miftahul Rahman.",
+  "deskripsi": "menampilkan profil, keahlian IT Network & System Administration, serta proyek dan sertifikasi. Halaman sertifikat menggunakan Google Sheets sebagai CMS dengan gambar dari GitHub CDN (jsDelivr). Lab Archive (subfolder) menyajikan proyek lab dinamis dari Google Sheets. Dibangun dengan HTML, CSS, JavaScript vanilla, responsif, dan dioptimalkan untuk performa serta SEO.",
   "link": "https://fatahilah-portofolio.vercel.app/",
   "tanggal": "2026-06-07"
 }
